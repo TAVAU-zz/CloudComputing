@@ -1,0 +1,55 @@
+{
+  "StartAt": "SaveCourse",
+  "States": {
+    "SaveCourse": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-east-2:432346481126:function:IsNewCourse",
+      "ResultPath": "$.Course",
+      "Next": "IsNewCourse"
+    },
+    "IsNewCourse": {
+      "Type": "Choice",
+      "Choices": [{
+         "Variable": "$.Course.status",
+         "StringEquals": "NEW",
+         "Next": "IsSeminars" 
+       }, 
+       {
+         "Variable": "$.Course.status",
+        "StringEquals": "OLD",
+        "Next": "ToTheEnd" 
+       } 
+     ]
+    },
+    "IsSeminars": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Not": {
+            "Variable": "$.Course.department",
+            "StringEquals": "Seminars"
+          },
+          "Next": "GenerateRegister"
+        }
+      ],
+      "Default": "ToTheEnd"
+    },
+    "GenerateRegister": {
+      "Type": "Task",
+      "InputPath": "$.Course",
+      "Resource":"arn:aws:lambda:us-east-2:432346481126:function:GenerateRegister",
+      "ResultPath": "$.Course",
+      "Next": "GenerateBoard"
+    },
+    "GenerateBoard": {
+      "Type": "Task",
+      "InputPath": "$.Course",
+      "Resource":"arn:aws:lambda:us-east-2:432346481126:function:GenerateBoard",
+      "Next": "ToTheEnd"
+    },
+    "ToTheEnd": {
+      "Type": "Pass",
+      "End": true
+  }
+  }
+}

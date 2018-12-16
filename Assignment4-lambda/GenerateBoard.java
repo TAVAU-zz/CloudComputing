@@ -26,7 +26,7 @@ public class GenerateBoard implements RequestHandler<Course, String> {
     @Override
     public String handleRequest(Course course, Context context) {
         context.getLogger().log("Input: " + course);
-        dynamoDBMapper.delete(course);
+        //dynamoDBMapper.delete(course);
         Board board = new Board();
         board.setCourseId(course.getCourseId());
         board.setBoardId(course.getCourseId());

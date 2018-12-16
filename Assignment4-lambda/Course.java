@@ -110,16 +110,7 @@ public class Course {
     }
     @Override
     public String toString() {
-        return "Course{" +
-                "Id='" + Id + '\'' +
-                ", courseId='" + courseId + '\'' +
-                ", professorId='" + professorId + '\'' +
-                ", TAId='" + TAId + '\'' +
-                ", department='" + department + '\'' +
-                ", boardId='" + boardId + '\'' +
-                ", enrolledStudent=" + enrolledStudent +
-                ", notificationTopic='" + notificationTopic + '\'' +
-                ", status='" + status + '\'' +
-                '}';
+        return "{\"courseId\": \"" + courseId + "\", \"department\": \"" + department +  "\", \"status\": \"" + status +
+                "\", \"boardId\": \"" + boardId + "\"}";
     }
 }
